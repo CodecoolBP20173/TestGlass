@@ -1,6 +1,8 @@
 package test;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import pageFactory.Login;
@@ -24,25 +26,22 @@ public class SchemesTest {
         login.login();
     }
 
-    @DisplayName("This is a test test")
-    @Test
-    void schemeNavigationTest() {
+    @DisplayName("Open scheme options from Glass")
+    @ParameterizedTest
+    @CsvFileSource(resources = "/schemes/scheme-types.csv")
+    void schemeNavigationTest(String selectedScheme, String SchemeTitle) {
         driver.get("https://jira2.codecool.codecanvas.hu/projects/SE?selectedItem=com.codecanvas.glass:glass");
         schemes.openSchemes();
         Assertions.assertEquals("Schemes", schemes.getSchemeTitle(), "Navigation schemes");
-        schemes.openSchemeOptions("IssueType");
+        schemes.openSchemeOptions(selectedScheme);
         driver.switchTo().window(schemes.getWindows().get(1));
         schemes.validatePassword();
-        System.out.println("Get title");
-        System.out.println(schemes.newWindowTitle());
-        System.out.println("Got title");
-
-
+        Assertions.assertEquals(SchemeTitle, schemes.getNewWindowTitle(), "The link redirect to the right page");
     }
 
-    /*@AfterEach
+    @AfterEach
     public void tearDown() {
         Utils.tearDown();
-    }*/
+    }
 
 }

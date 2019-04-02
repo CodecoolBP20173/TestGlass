@@ -35,10 +35,10 @@ public class Schemes extends PageObject{
     }
 
     public void openSchemeOptions(String schemeName) {
-        driver.findElement(By.xpath("//*[@id='glass-general-schemes-panel']//table[@class='aui aui-table-sortable']//a[contains(@href,"+ schemeName +")]")).click();
+        driver.findElement(By.xpath("//*[@id='glass-general-schemes-panel']//table[@class='aui aui-table-sortable']//a[contains(@href,'"+ schemeName +"')]")).click();
     }
 
-    public String newWindowTitle() {
+    public String getNewWindowTitle() {
         return driver.getTitle();
     }
 
