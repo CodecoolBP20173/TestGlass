@@ -33,6 +33,9 @@ public class SchemesTest {
         schemes.openSchemeOptions("IssueType");
         driver.switchTo().window(schemes.getWindows().get(1));
         schemes.validatePassword();
+        System.out.println("Get title");
+        System.out.println(schemes.newWindowTitle());
+        System.out.println("Got title");
 
 
     }

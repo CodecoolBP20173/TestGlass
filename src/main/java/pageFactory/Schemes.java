@@ -21,7 +21,7 @@ public class Schemes extends PageObject{
 
     @FindBy(id = "login-form-submit")
     WebElement submitPassword;
-    
+
     public Schemes(WebDriver driver) {
         super(driver);
     }
@@ -36,6 +36,10 @@ public class Schemes extends PageObject{
 
     public void openSchemeOptions(String schemeName) {
         driver.findElement(By.xpath("//*[@id='glass-general-schemes-panel']//table[@class='aui aui-table-sortable']//a[contains(@href,"+ schemeName +")]")).click();
+    }
+
+    public String newWindowTitle() {
+        return driver.getTitle();
     }
 
     public List<String> getWindows() {
