@@ -21,20 +21,25 @@ public class SchemesTest {
         login = new Login(driver);
         schemes = new Schemes(driver);
         driver.manage().window().setSize(new Dimension(1280, 720));
+        login.login();
     }
 
-    @DisplayName("This a test test")
+    @DisplayName("This is a test test")
     @Test
     void schemeNavigationTest() {
-        login.login();
         driver.get("https://jira2.codecool.codecanvas.hu/projects/SE?selectedItem=com.codecanvas.glass:glass");
         schemes.openSchemes();
         Assertions.assertEquals("Schemes", schemes.getSchemeTitle(), "Navigation schemes");
+        schemes.openSchemeOptions("IssueType");
+        driver.switchTo().window(schemes.getWindows().get(1));
+        schemes.validatePassword();
+
+
     }
 
-    @AfterEach
+    /*@AfterEach
     public void tearDown() {
         Utils.tearDown();
-    }
+    }*/
 
 }
