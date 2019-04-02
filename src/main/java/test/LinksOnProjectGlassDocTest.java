@@ -2,7 +2,6 @@ package test;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
@@ -39,7 +38,14 @@ class LinksOnProjectGlassDocTest {
         assertEquals(linksOnProjectGlassDoc.getExampleProjectNameOnDetailsPage(), exampleProjectTitleShort);
     }
 
-    @Disabled
+    @Test
+    public void componentsLink_test() throws InterruptedException {
+        linksOnProjectGlassDoc.getExampleProjectPage();
+        linksOnProjectGlassDoc.clickOnComponentLinkIcon();
+        linksOnProjectGlassDoc.switchTabFocus(2);
+        assertEquals(linksOnProjectGlassDoc.getSubTitleOnComponentDetailsPage(), "Components");
+    }
+
     @AfterEach
     public void tearDown() {
         Utils.tearDown();
