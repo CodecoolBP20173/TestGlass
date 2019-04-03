@@ -4,9 +4,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class Schemes extends PageObject{
 
@@ -22,8 +24,15 @@ public class Schemes extends PageObject{
     @FindBy(id = "login-form-submit")
     WebElement submitPassword;
 
+    @FindBy(xpath = "//*[@id='glass-general-schemes-panel']//table[@class='aui aui-table-sortable']//a[contains(@href,'')]")
+    List<WebElement> optionButtons;
+
     public Schemes(WebDriver driver) {
         super(driver);
+    }
+
+    public void navigationToGlassDocumentation() {
+        driver.get("https://jira2.codecool.codecanvas.hu/projects/SE?selectedItem=com.codecanvas.glass:glass");
     }
 
     public void openSchemes() {
@@ -36,6 +45,14 @@ public class Schemes extends PageObject{
 
     public void openSchemeOptions(String schemeName) {
         driver.findElement(By.xpath("//*[@id='glass-general-schemes-panel']//table[@class='aui aui-table-sortable']//a[contains(@href,'"+ schemeName +"')]")).click();
+    }
+
+    public boolean openSchemeOptionVisible() {
+        if (optionButtons.size() == 0) {
+            return true;
+        }else {
+            return false;
+        }
     }
 
     public String getNewWindowTitle() {

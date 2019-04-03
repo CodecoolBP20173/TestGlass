@@ -23,20 +23,30 @@ public class SchemesTest {
         login = new Login(driver);
         schemes = new Schemes(driver);
         driver.manage().window().setSize(new Dimension(1280, 720));
-        login.login();
     }
 
-    @DisplayName("Open scheme options from Glass")
+    @DisplayName("Open scheme options from Glass as Administrator")
     @ParameterizedTest
     @CsvFileSource(resources = "/schemes/scheme-types.csv")
-    void schemeNavigationTest(String selectedScheme, String SchemeTitle) {
-        driver.get("https://jira2.codecool.codecanvas.hu/projects/SE?selectedItem=com.codecanvas.glass:glass");
+    void schemeNavigationTestAsAdmin(String selectedScheme, String SchemeTitle) {
+        login.login();
+        schemes.navigationToGlassDocumentation();
         schemes.openSchemes();
         Assertions.assertEquals("Schemes", schemes.getSchemeTitle(), "Navigation schemes");
         schemes.openSchemeOptions(selectedScheme);
         driver.switchTo().window(schemes.getWindows().get(1));
         schemes.validatePassword();
         Assertions.assertEquals(SchemeTitle, schemes.getNewWindowTitle(), "The link redirect to the right page");
+    }
+    
+    @DisplayName("Open scheme option from Glass as software-user")
+    @Test
+    void schemeNavigationTestAsDeveloper() {
+        login.loginWithDashboard(System.getenv("username2"), System.getenv("password2"));
+        schemes.navigationToGlassDocumentation();
+        schemes.openSchemes();
+        Assertions.assertEquals("Schemes", schemes.getSchemeTitle(), "Navigation schemes");
+        Assertions.assertTrue(schemes.openSchemeOptionVisible());
     }
 
     @AfterEach
