@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
 
 public class Schemes extends PageObject{
 
-    @FindBy(xpath = "/*[@id='glass-general-panel']//div//ul//li//*[@id='aui-uid-3']")
+    @FindBy(xpath = "//*[@id='glass-general-panel']//div//ul//li//*[@id='aui-uid-3']")
     WebElement schemeButton;
 
     @FindBy(xpath = "//*[@id='glass-general-schemes-panel']//span[text()='Schemes ']")
