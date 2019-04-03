@@ -21,6 +21,9 @@ public class LinksOnProjectGlassDoc extends PageObject {
     @FindBy(xpath = "//*[@id='glass-general-panel']/div[1]/div[1]/div/h2/a")
     WebElement basicSummaryLinkIcon;
 
+    @FindBy(xpath = "//*[@id='glass-general-panel']/div[1]/div[1]/div/h2/a")
+    List<WebElement> linkIcons;
+
     @FindBy(xpath = "//*[@id=\"project-edit\"]/div[1]/h2")
     WebElement subTitleOnBasicSummaryDetailsPage;
 
@@ -106,6 +109,13 @@ public class LinksOnProjectGlassDoc extends PageObject {
     public String getSubTitleOnPeopleDetailsPage() {
         wait.until(ExpectedConditions.visibilityOf(subTitleOnPeopleDetailsPage));
         return subTitleOnPeopleDetailsPage.getText();
+    }
+
+    public boolean checkIfBasicSummaryIconIsAvailable() {
+        if (linkIcons.size() == 0) {
+            return true;
+        }
+        return false;
     }
 
     //TODO: versions, schemes links testing -> +1 step: click on versions/schemes before clicking on the link icon

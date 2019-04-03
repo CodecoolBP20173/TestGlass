@@ -55,6 +55,20 @@ public class Login extends PageObject {
         logoutBtn.click();
     }
 
+    public void loginWithDashboard(String username, String password) {
+        driver.navigate().to("https://jira2.codecool.codecanvas.hu/login.jsp");
+        if (username == null) {
+            username = "";
+        }
+        if (password == null) {
+            password = "";
+        }
+
+        userName.sendKeys(username);
+        this.password.sendKeys(password);
+        loginBtn.click();
+    }
+
     public boolean wrongLogin() {
         return errorMessage.isDisplayed();
     }
