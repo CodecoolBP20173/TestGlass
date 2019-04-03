@@ -67,6 +67,8 @@
                         <driverPath>${driverPath}</driverPath>
                         <username>${username}</username>
                         <password>${password}</password>
+                        <username2>${username2}</username2>
+                        <password2>${password2}</password2>
                     </environmentVariables>
                 </configuration>
 
