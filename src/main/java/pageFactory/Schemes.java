@@ -36,6 +36,7 @@ public class Schemes extends PageObject{
     }
 
     public void openSchemes() {
+        wait.until(ExpectedConditions.visibilityOf(schemeButton));
         schemeButton.click();
     }
 
