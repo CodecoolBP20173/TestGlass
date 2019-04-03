@@ -10,8 +10,6 @@ import pageFactory.Login;
 import util.RunEnvironment;
 import util.Utils;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class LinksOnProjectGlassDocTest {
 
     WebDriver driver;
@@ -35,15 +33,26 @@ class LinksOnProjectGlassDocTest {
         linksOnProjectGlassDoc.getExampleProjectPage();
         linksOnProjectGlassDoc.clickOnBasicSummaryLinkIcon();
         linksOnProjectGlassDoc.switchTabFocus(2);
-        assertEquals(linksOnProjectGlassDoc.getExampleProjectNameOnDetailsPage(), exampleProjectTitleShort);
+        String exampleProjectNameOnBasicSummaryPage = linksOnProjectGlassDoc.getSubTitleOnBasicSummaryDetailsPage();
+        assert(exampleProjectNameOnBasicSummaryPage.contains("Details"));
     }
 
     @Test
-    public void componentsLink_test() throws InterruptedException {
+    public void componentsLink_test() {
         linksOnProjectGlassDoc.getExampleProjectPage();
         linksOnProjectGlassDoc.clickOnComponentLinkIcon();
         linksOnProjectGlassDoc.switchTabFocus(2);
-        assertEquals(linksOnProjectGlassDoc.getSubTitleOnComponentDetailsPage(), "Components");
+        String subTitleOnComponentDetailsPage = linksOnProjectGlassDoc.getSubTitleOnComponentDetailsPage();
+        assert(subTitleOnComponentDetailsPage.contains("Components"));
+    }
+
+    @Test
+    public void peopleLink_test() {
+        linksOnProjectGlassDoc.getExampleProjectPage();
+        linksOnProjectGlassDoc.clickOnPeopleLinkIcon();
+        linksOnProjectGlassDoc.switchTabFocus(2);
+        String subTitleOnPeopleDetailsPage = linksOnProjectGlassDoc.getSubTitleOnPeopleDetailsPage();
+        assert(subTitleOnPeopleDetailsPage.contains("Users and roles"));
     }
 
     @AfterEach

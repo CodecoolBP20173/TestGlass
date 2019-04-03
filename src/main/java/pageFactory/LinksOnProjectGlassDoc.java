@@ -21,8 +21,8 @@ public class LinksOnProjectGlassDoc extends PageObject {
     @FindBy(xpath = "//*[@id='glass-general-panel']/div[1]/div[1]/div/h2/a")
     WebElement basicSummaryLinkIcon;
 
-    @FindBy(xpath = "//*[@id='project-edit']//div[contains(@class, 'field-group')]/input")
-    WebElement exampleProjectNameOnDetailsPage;
+    @FindBy(xpath = "//*[@id=\"project-edit\"]/div[1]/h2")
+    WebElement subTitleOnBasicSummaryDetailsPage;
 
     @FindBy(xpath = "//*[@id='glass-general-components-panel']/div/h2/a")
     WebElement componentsLinkIcon;
@@ -30,9 +30,39 @@ public class LinksOnProjectGlassDoc extends PageObject {
     @FindBy(xpath = "//*[@id='content']/div[2]/div/section/header/div/div[2]/h2")
     WebElement subTitleOnComponentDetailsPage;
 
+    @FindBy(xpath = "//*[@id='glass-people-nav']/a")
+    WebElement peopleSubMenu;
+
+    @FindBy(xpath = "//*[@id='glass-people-panel']/div/h2/a/span")
+    WebElement peopleLinkIcon;
+
+    @FindBy(xpath = "//*[@id='project-config-panel-roles']/div[1]/div/div[1]/h2")
+    WebElement subTitleOnPeopleDetailsPage;
+
+    List<WebElement> clickableIcons = new ArrayList<>();
+
+    List<WebElement> validationFieldsForLinkIcons = new ArrayList<>();
+
+    public List<WebElement> getClickableIcons() {
+        return clickableIcons;
+    }
+
+    public List<WebElement> getValidationFieldsForLinkIcons() {
+        return validationFieldsForLinkIcons;
+    }
+
     public LinksOnProjectGlassDoc(WebDriver driver) {
         super(driver);
         this.wait = new WebDriverWait(driver, TIMEOUT, POLLING);
+        addItemsToLists();
+    }
+
+    public void addItemsToLists() {
+        clickableIcons.add(basicSummaryLinkIcon);
+        clickableIcons.add(componentsLinkIcon);
+
+        validationFieldsForLinkIcons.add(subTitleOnBasicSummaryDetailsPage);
+        validationFieldsForLinkIcons.add(subTitleOnComponentDetailsPage);
     }
 
     public void switchTabFocus(int tabNumberToFocusOn) {
@@ -44,6 +74,10 @@ public class LinksOnProjectGlassDoc extends PageObject {
         driver.get(exampleProjectURL);
     }
 
+    public void clickOnElement(WebElement element) {
+        element.click();
+    }
+
     public void clickOnBasicSummaryLinkIcon() {
         basicSummaryLinkIcon.click();
     }
@@ -52,14 +86,30 @@ public class LinksOnProjectGlassDoc extends PageObject {
         componentsLinkIcon.click();
     }
 
-    public String getExampleProjectNameOnDetailsPage() {
-        wait.until(ExpectedConditions.visibilityOf(exampleProjectNameOnDetailsPage));
-        return exampleProjectNameOnDetailsPage.getAttribute("value");
+    public void clickOnPeopleLinkIcon() {
+        wait.until(ExpectedConditions.visibilityOf(peopleSubMenu));
+        peopleSubMenu.click();
+        wait.until(ExpectedConditions.visibilityOf(peopleLinkIcon));
+        peopleLinkIcon.click();
+    }
+
+    public String getSubTitleOnBasicSummaryDetailsPage() {
+        wait.until(ExpectedConditions.visibilityOf(subTitleOnBasicSummaryDetailsPage));
+        return subTitleOnBasicSummaryDetailsPage.getText();
     }
 
     public String getSubTitleOnComponentDetailsPage() {
         wait.until(ExpectedConditions.visibilityOf(subTitleOnComponentDetailsPage));
         return subTitleOnComponentDetailsPage.getText();
     }
+
+    public String getSubTitleOnPeopleDetailsPage() {
+        wait.until(ExpectedConditions.visibilityOf(subTitleOnPeopleDetailsPage));
+        return subTitleOnPeopleDetailsPage.getText();
+    }
+
+    //TODO: versions, schemes links testing -> +1 step: click on versions/schemes before clicking on the link icon
+
+    //TODO: notifications, permissions
 
 }
