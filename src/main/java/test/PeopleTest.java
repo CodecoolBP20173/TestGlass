@@ -35,8 +35,8 @@ public class PeopleTest {
         Assertions.assertTrue(people.getPeoplePanel());
     }
 
-//    @AfterEach
-//    public void tearDown() {
-//        Utils.tearDown();
-//    }
+    @AfterEach
+    public void tearDown() {
+        Utils.tearDown();
+    }
 }
