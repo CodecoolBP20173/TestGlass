@@ -28,7 +28,7 @@ public class SchemesTest {
     @DisplayName("Open scheme options from Glass as Administrator")
     @ParameterizedTest
     @CsvFileSource(resources = "/schemes/scheme-types.csv")
-    void schemeNavigationTestAsAdmin(String selectedScheme, String SchemeTitle) {
+    void schemeAvailableAsAdmin(String selectedScheme, String SchemeTitle) {
         login.login();
         schemes.navigationToGlassDocumentation();
         schemes.openSchemes();
@@ -38,10 +38,10 @@ public class SchemesTest {
         schemes.validatePassword();
         Assertions.assertEquals(SchemeTitle, schemes.getNewWindowTitle(), "The link redirect to the right page");
     }
-    
+
     @DisplayName("Open scheme option from Glass as software-user")
     @Test
-    void schemeNavigationTestAsDeveloper() {
+    void schemeAvailableAsDeveloper() {
         login.loginWithDashboard(System.getenv("username2"), System.getenv("password2"));
         schemes.navigationToGlassDocumentation();
         schemes.openSchemes();
